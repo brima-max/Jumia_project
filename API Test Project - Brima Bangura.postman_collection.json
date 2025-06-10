@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "e52d49aa-97f9-41d7-8777-e5df19d5e193",
+		"name": "API Test Project - Brima Bangura",
+		"description": "<img src=\"https://content.pstmn.io/f627bbc2-d0a2-4432-933a-fd63ac4fe410/aW1hZ2UucG5n\" alt=\"\" height=\"182\" width=\"936\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44852118",
+		"_collection_link": "https://brimabangura.postman.co/workspace/24bbc978-c2ad-4175-8d03-52839603a12a/collection/44852118-e52d49aa-97f9-41d7-8777-e5df19d5e193?action=share&source=collection_link&creator=44852118"
+	},
+	"item": [
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Verify id property is present\", function () {\r",
+							"    pm.expect(response).to.have.property(\"id\").to.not.eql(null)\r",
+							"});\r",
+							"pm.test(\"Verify first_name property is Tester\", function () {\r",
+							"    pm.expect(response).to.have.property(\"first_name\").to.eql(\"Tester\")\r",
+							"});\r",
+							"pm.test(\"Verify last_name property is Weaver\", function () {\r",
+							"    pm.expect(response).to.have.property(\"last_name\").to.eql(\"Weaver\")\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{missingAPI}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Tester\",\r\n    \"last_name\": \"Weaver\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"pm.test(\"Verify id property is present\", function () {",
+							"    pm.expect(response.id).to.not.eql(null)",
+							"});",
+							"pm.test(\"Verify email property is present\", function () {",
+							"    pm.expect(response.email).to.not.eql(null)",
+							"});",
+							"pm.test(\"Verify first_name property is present\", function () {",
+							"    pm.expect(response.first_name).to.not.eql(null)",
+							"});",
+							"pm.test(\"Verify last_name property is present\", function () {",
+							"    pm.expect(response.last_name).to.not.eql(null)",
+							"});",
+							"",
+							"    ",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{missingAPI}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users?id=2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Total number of users is 12\", function () {",
+							"    pm.expect(response.total).to.eql(12)",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"pm.test(\"Total number of pages is 2\", function () {",
+							"    pm.expect(response.total_pages).to.eql(2)",
+							"});",
+							"pm.test(\"Verify id property is present\", function () {",
+							"    pm.expect(response.id).to.not.eql(null)",
+							"});",
+							"pm.test(\"Verify first_name property is present\", function () {",
+							"    pm.expect(response.first_name).to.not.eql(null)",
+							"    });",
+							"pm.test(\"Verify last_name property is present\", function () {",
+							"    pm.expect(response.last_name).to.not.eql(null)",
+							"    });",
+							"pm.test(\"Verify email property is present\", function () {",
+							"    pm.expect(response.email).to.not.eql(null)",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{missingAPI}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"pm.test(\"Verify first_name property is present\", function () {",
+							"    pm.expect(response.first_name).to.not.eql(null)",
+							"    });",
+							"pm.test(\"Verify last_name property is present\", function () {",
+							"    pm.expect(response.last_name).to.not.eql(null)",
+							"});",
+							"pm.test(\"Verify updatedAt property is present\", function () {",
+							"    pm.expect(response.updatedAt).to.not.eql(null)",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{missingAPI}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Janete\",\n    \"last_name\": \"Weaver\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"2"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.text();",
+							"",
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"No Content\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{missingAPI}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users?id=2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
